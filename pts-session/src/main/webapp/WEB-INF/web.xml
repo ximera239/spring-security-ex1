@@ -6,9 +6,14 @@
 
     <!-- spring security section -->
     <!-- Spring Security Configuration File -->
+    <!-- Get from https://github.com/spring-projects/spring-security-javaconfig/blob/master/samples/social/src/main/webapp/WEB-INF/web.xml -->
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring/appServlet/spring-security.xml</param-value>
+        <param-value>com.elance.nephrite.pts.security.config</param-value>
     </context-param>
 
     <!-- Creates the Spring Container shared by all Servlet and Filters -->
@@ -23,7 +28,7 @@
         <session-timeout>15</session-timeout>
         <!--http://stackoverflow.com/questions/877064/changing-cookie-jsessionid-name-->
         <cookie-config>
-            <name>SessionID</name>
+            <name>PHP_SESSION</name>
         </cookie-config>
     </session-config>
 
@@ -43,8 +48,16 @@
         <servlet-name>appServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>
+                org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+            </param-value>
+        </init-param>
+        <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+            <param-value>
+                com.elance.nephrite.pts.session.config.AppConfiguration
+            </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

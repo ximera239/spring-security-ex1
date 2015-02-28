@@ -25,18 +25,4 @@ class HomeController {
 
   @RequestMapping(value = Array("/denied"),method = Array(RequestMethod.GET, RequestMethod.HEAD))
   def denied() = "denied"
-
-  @RequestMapping(value = Array("/emp/get/{id}"), method = Array(RequestMethod.GET))
-  def emp(locale: Locale, model: Model, @PathVariable("id") id: Int) = {
-    val date = new Date()
-    val dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale)
-
-    val formattedDate = dateFormat.format(date)
-
-    model.addAttribute("serverTime", formattedDate )
-    model.addAttribute("id", id)
-    model.addAttribute("name", "Pankaj")
-
-    "employee"
-  }
 }
