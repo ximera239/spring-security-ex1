@@ -1,6 +1,7 @@
 package com.elance.nephrite.pts.session.config
 
-import org.springframework.context.annotation.{Bean, ComponentScan, Configuration, PropertySource}
+import com.elance.nephrite.pts.security.config.{PropertiesConfig, SecurityConfig}
+import org.springframework.context.annotation._
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.view.InternalResourceViewResolver
 

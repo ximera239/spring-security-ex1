@@ -28,7 +28,7 @@
         <session-timeout>15</session-timeout>
         <!--http://stackoverflow.com/questions/877064/changing-cookie-jsessionid-name-->
         <cookie-config>
-            <name>PHP_SESSION</name>
+            <name>PHPSESSID</name>
         </cookie-config>
     </session-config>
 

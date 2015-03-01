@@ -24,34 +24,18 @@ class MemcachedSecurityContextRepository extends HttpSessionSecurityContextRepos
   private var delegate: HttpSessionSecurityContextRepository = _
 
   override def loadContext(requestResponseHolder: HttpRequestResponseHolder): SecurityContext = {
+    info(s">>>>>>>>>>> loadContext called")
     val context = delegate.loadContext(requestResponseHolder)
-
-    info(s">>>>>>>>>>> loadContext called, $COOKIE_NAME")
-
     context
   }
 
   override def containsContext(request: HttpServletRequest): Boolean = {
-    val flag = delegate.containsContext(request)
-
-    info(s">>>>>>>>>>> containsContext called, $COOKIE_NAME")
-    info(s"${request.getRequestURI}")
-
-    val sessionCookie = Option(request.getCookies).map(_.toList).getOrElse(List.empty[Cookie]).find(_.getName == COOKIE_NAME)
-
-    if (sessionCookie.isDefined) {
-      info (s"cookie: ${sessionCookie.get.getValue}")
-      true
-    } else false
-
-    flag
+    info(s">>>>>>>>>>> containsContext called")
+    delegate.containsContext(request)
   }
 
   override def saveContext(context: SecurityContext, request: HttpServletRequest, response: HttpServletResponse): Unit = {
-    delegate.saveContext(context, request, response)
-
-    info(s">>>>>>>>>>> saveContext called, $COOKIE_NAME")
-    info(s"${request.getRequestURI}")
+    info(s">>>>>>>>>>> saveContext called")
     Option(context.getAuthentication).
       map(a => info(
         s"""Authentication:
@@ -60,5 +44,7 @@ class MemcachedSecurityContextRepository extends HttpSessionSecurityContextRepos
            |    ${a.getDetails}
            |    ${a.getPrincipal}
            |    """.stripMargin))
+
+    delegate.saveContext(context, request, response)
   }
 }
